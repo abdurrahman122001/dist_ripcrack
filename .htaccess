@@ -1,11 +1,8 @@
-# Content Security Policy for Chat Widget
-<IfModule mod_headers.c>
-    Header always set Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://challenges.cloudflare.com https://chat.ripcrack.net https://ripcrack.net https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.chatmesaj.cc https://chat.ripcrack.net ws: wss:; img-src 'self' data: https://chat.ripcrack.net https://api.chatmesaj.cc; frame-src 'self' https://chat.ripcrack.net; font-src 'self' data:;"
-</IfModule>
+# Nginx CSP Headers - EXTREMELY PERMISSIVE VERSION
+# Replace your current CSP headers with this in CloudPanel vhost:
 
-# Enable CORS for API requests
-<IfModule mod_headers.c>
-    Header always set Access-Control-Allow-Origin "*"
-    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-    Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
-</IfModule>
+# Add after {{settings}} line:
+add_header Content-Security-Policy "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; connect-src * ws: wss:; img-src * data: blob:; frame-src *; font-src * data:;" always;
+add_header Access-Control-Allow-Origin "*" always;
+add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS" always;
+add_header Access-Control-Allow-Headers "Content-Type, Authorization" always;
